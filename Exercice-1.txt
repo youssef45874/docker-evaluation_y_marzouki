@@ -1,0 +1,72 @@
+Exercice 1 :
+
+	1. Un conteneur est une unité logicielle légère, portable et isolée qui regroupe une application et toutes ses dépendances (bibliothèques, configurations) pour garantir son exécution cohérente sur n'importe quel environnement.
+
+
+	2. Non, Docker n'a pas inventé les conteneurs Linux. Il s'appuie sur des technologies existantes comme les cgroups et les namespaces. Docker a simplifié l'utilisation des conteneurs grâce à une interface conviviale, un format d'image standardisé et un écosystème complet (Docker Hub, Docker Compose, etc.).
+
+
+	3. Docker est conçu pour les processus sans états car :
+
+		Les conteneurs sont éphémères et faciles à recréer.
+
+		Les données persistantes peuvent être stockées en dehors des conteneurs via  		des volumes ou des bind-mounts.
+
+
+	4. On distribue des images Docker. Elles doivent être :
+
+		Réplicables : même comportement sur tout environnement.
+
+		Légères : pour des temps de déploiement réduits.
+
+		Versionnées : via des tags pour assurer la traçabilité.
+
+
+	5. docker run : crée et démarre un nouveau conteneur.
+
+	   docker exec : exécute une commande dans un conteneur déjà en cours d'exécution.
+
+
+	6. Oui, avec docker exec on peut exécuter plusieurs processus supplémentaires tant que le conteneur est en cours d'exécution.
+
+
+	7. Car le tag latest peut changer au fil du temps, rendant le comportement imprévisible. Un tag précis garantit la stabilité et la reproductibilité du projet.
+
+
+	8. docker run -d -p 9001:80 --name my-php -v "$PWD":/var/www/html php:8.2-apache
+
+	
+	9. docker stop $(docker ps -q)
+
+
+	10. Minimiser les couches dans le Dockerfile.
+
+	    Utiliser des images de base légères (ex : alpine).
+
+	    Nettoyer les fichiers temporaires après installation.
+
+	    Multistage builds pour séparer la compilation de l'exécution.
+
+
+	11. Vrai, sauf si un volume ou un bind-mount est utilisé pour stocker les données en dehors du conteneur.
+
+
+	12. Vrai. Une image est immuable. Pour la modifier, il faut recréer une nouvelle image.
+
+
+	13. Via un registry Docker (ex : Docker Hub). On utilise :
+
+		docker push pour publier une image.
+
+		docker pull pour récupérer une image.
+
+
+	14. L'image scratch est l'image la plus petite. Elle est vide et sert de point de départ minimaliste.
+
+
+	15. Le client Docker communique avec le daemon dockerd via un socket Unix (par défaut /var/run/docker.sock) ou via TCP. Oui, on peut utiliser HTTP en configurant le daemon pour écouter sur un port TCP.
+
+
+	16. CMD : Définit la commande par défaut, modifiable lors de l'exécution.
+
+	    ENTRYPOINT : Définit la commande principale, difficile à override (sauf avec --	    entrypoint).
